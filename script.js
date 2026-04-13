@@ -1,20 +1,45 @@
-// Inicializa os ícones da biblioteca Lucide
-lucide.createIcons();
+// Seleção de elementos via ID
+const btnDarkMode = document.getElementById('btn-dark-mode');
+const btnSaudar = document.getElementById('btn-saudar');
+const btnIncrementar = document.getElementById('btn-incrementar');
+const inputNome = document.getElementById('user-name');
+const greetingArea = document.getElementById('greeting-area');
+const personalWelcome = document.getElementById('personal-welcome');
+const counterValue = document.getElementById('counter-value');
 
-// Função para scroll suave ao clicar no botão
-function scrollToSection(id) {
-    const section = document.getElementById(id);
-    section.scrollIntoView({ behavior: 'smooth' });
-}
+// Variável para armazenar o estado do contador
+let totalAcoes = 0;
 
-// Mudança de cor do header ao rolar a página
-window.addEventListener('scroll', function() {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-        header.style.padding = '0.5rem 5%';
-        header.style.background = '#ffffffef';
+// Função para alternar entre modo claro e escuro
+btnDarkMode.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    // Altera o texto do botão conforme o estado
+    btnDarkMode.innerText = document.body.classList.contains('dark-theme') 
+        ? "Modo Claro" 
+        : "Modo Escuro";
+});
+
+// Função para processar o nome e exibir saudação (Manipulação de DOM)
+btnSaudar.addEventListener('click', () => {
+    const nome = inputNome.value.trim();
+    
+    if (nome !== "") {
+        // Armazena e processa a informação antes de exibir
+        personalWelcome.innerHTML = `Olá, <strong>${nome}</strong>! Obrigado por apoiar o agro sustentável.`;
+        
+        // Mostra a div que estava escondida
+        greetingArea.classList.remove('hidden');
     } else {
-        header.style.padding = '1rem 5%';
-        header.style.background = '#ffffff';
+        alert("Por favor, digite seu nome.");
     }
+});
+
+// Função para atualizar o contador na tela
+btnIncrementar.addEventListener('click', () => {
+    totalAcoes++; // Incrementa a variável
+    counterValue.textContent = totalAcoes; // Atualiza o HTML
+    
+    // Efeito visual simples via JS
+    counterValue.style.color = "#8bc34a";
+    setTimeout(() => { counterValue.style.color = ""; }, 300);
 });
